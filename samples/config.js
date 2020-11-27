@@ -28,5 +28,7 @@ const config = (method) => ({
     'Authorization': `Basic ${base64.encode(`${AUTH.user}:${AUTH.pass}`)}`,
   },
 });
+// config.prototype.url = "http://www.codingyang.com:8080/geoserver/rest";
+
 
 module.exports = config;

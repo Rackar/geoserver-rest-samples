@@ -5,3 +5,4 @@ docker/extensions
 !/raster/.gitkeep
 raster/*.*
 .~lock.*
+samples/config_params.js

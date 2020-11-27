@@ -18,9 +18,11 @@
 
 const fetch = require('node-fetch');
 const config = require('./config');
+const params = require('./config_params');
 
-const URL = 'http://localhost:8080/geoserver/rest';
-const WORKSPACE = 'siglibre';
+let URL = 'http://localhost:8080/geoserver/rest';
+URL=params.URL
+const WORKSPACE = 'siglibre4';
 
 const PUBLISHWORKSPACE = `${URL}/workspaces/`;
 
@@ -37,7 +39,7 @@ const createWorkspace = async (name) => {
   const text = await response.text();
   if (response.ok) {
     return `Something great has happened. The workspace ${text} has been created!`;
-  } else {
+  } else { 
     throw new Error(`Some terrible has happened: Status ${response.status}`);
   }
 };

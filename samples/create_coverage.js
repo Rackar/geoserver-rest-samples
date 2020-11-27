@@ -20,8 +20,11 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const config = require('./config');
 
-const URL = 'http://localhost:8080/geoserver/rest';
-const WORKSPACE = 'siglibre';
+const params = require('./config_params');
+
+let URL = 'http://localhost:8080/geoserver/rest';
+URL=params.URL
+const WORKSPACE = 'siglibre4';
 const COVERAGESTORE = 'raster';
 
 const createCoverage = async (name) => {
@@ -43,7 +46,7 @@ const createCoverage = async (name) => {
   if (response.ok) {
     return `Something great has happened. The coveragestore ${text} has been created!`;
   } else {
-    throw new Error(`Some terrible has happened: Status ${response.status}`);
+    throw new Error(`Some terrible has happened: Status ${response.status}, maybe exists.`);
   }
 };
 
@@ -65,9 +68,16 @@ const updatedCoverageStore = async (path, coveragestore) => {
   }
 }
 
+// 创建存储区加上传栅格影像
 createCoverage(COVERAGESTORE).then(response => {
   console.log(response)
-  updatedCoverageStore('./raster/C3_rgb.zip', COVERAGESTORE)
+  updatedCoverageStore('./raster/test.zip', COVERAGESTORE)
      .then(response => console.log(response))
      .catch(error => console.error(error));
 }).catch(error => console.error(error));
+
+
+// 已有存储区，仅上传影像进去发布。已测试不能多次发布同一数据
+// updatedCoverageStore('./raster/test2.zip', COVERAGESTORE)
+//      .then(response => console.log(response))
+//      .catch(error => console.error(error));
